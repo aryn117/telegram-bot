@@ -1,7 +1,10 @@
 const TelegramBot = require("node-telegram-bot-api");
+const fs = require("fs");
+
 const token = "5927350968:AAHpJtavt0-g_mDl7s1k-vYUkqLYU4icFTQ";
 
 const bot = new TelegramBot(token, { polling: true });
+const TRACKS_UPPER_LIMIT = 7;
 
 const replies = [
   "I love you without knowing how, or when, or from where. I love you simply, without problems or pride: I love you in this way because I do not know any other way of loving but this, in which there is no I or you, so intimate that your hand upon my chest is my hand, so intimate that when I fall asleep your eyes close.",
@@ -59,12 +62,20 @@ bot.on("message", (msg) => {
       replies[randomNumberGenerator(0, replies.length - 1)].toString()
     );
   } else if (msg.text.toLowerCase() === "sing me a song") {
-    bot.sendMessage(chatId, "cannot sing🥲🥲");
+    try {
+      bot.sendMessage(chatId, "😳😳 okay, i'll try");
+      const stream = fs.createReadStream(
+        `./assets/track_${randomNumberGenerator(1, TRACKS_UPPER_LIMIT)}.mp3`
+      );
+      bot.sendAudio(chatId, stream);
+    } catch (error) {
+      console.error(error);
+    }
   } else {
     bot.sendMessage(chatId, "Not The Magic Words, Pathuman!!!");
   }
 });
 
-function randomNumberGenerator(min = 0, max = 99) {
-  return Math.floor(Math.random() * (max + 1) + (min + 1));
+function randomNumberGenerator(min = 0, max = 999) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
