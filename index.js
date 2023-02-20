@@ -448,7 +448,7 @@ bot.on("message", (msg) => {
     try {
   
       const selectedGIF = gifs[randomNumberGenerator(0, gifs.length - 1)];
-      bot.sendPhoto(chatId, `${selectedGIF}.gif`);
+      bot.sendAnimation(chatId, `${selectedGIF}.gif`);
     } catch (error) {
       console.error(error);
     }
