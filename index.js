@@ -5,6 +5,7 @@ const token = "5927350968:AAHpJtavt0-g_mDl7s1k-vYUkqLYU4icFTQ";
 
 const bot = new TelegramBot(token, { polling: true });
 const TRACKS_UPPER_LIMIT = 7;
+const GIFS_UPPER_LIMIT = 364;
 
 const replies = [
   "I love you without knowing how, or when, or from where. I love you simply, without problems or pride: I love you in this way because I do not know any other way of loving but this, in which there is no I or you, so intimate that your hand upon my chest is my hand, so intimate that when I fall asleep your eyes close.",
@@ -42,7 +43,7 @@ bot.onText(/\/start/, (msg) => {
     "Welcome Pathuman! I have made this bot so you can, whenever you want, you can ask me \n 1. do u nob me? \n 2. Sing me a song",
     {
       reply_markup: {
-        keyboard: [["do u nob me?"], ["sing me a song"]],
+        keyboard: [["do u nob me?"], ["sing me a song"],["send me something cute"]],
       },
     }
   );
@@ -53,7 +54,9 @@ bot.on("message", (msg) => {
 
   if (msg.text.toLowerCase() === "/start") {
     return;
-  } else if (
+  }
+  // send texts ///////////////////////////////////////////////////////////
+  else if (
     msg.text.toLowerCase() === "do u nob me?" ||
     msg.text.toLowerCase() === "do you nob me?"
   ) {
@@ -61,7 +64,9 @@ bot.on("message", (msg) => {
       chatId,
       replies[randomNumberGenerator(0, replies.length - 1)].toString()
     );
-  } else if (msg.text.toLowerCase() === "sing me a song") {
+  } 
+  // send a song ///////////////////////////////////////////////////////////
+  else if (msg.text.toLowerCase() === "sing me a song") {
     try {
       bot.sendMessage(chatId, "😳😳 okay, i'll try");
       const stream = fs.createReadStream(
@@ -71,7 +76,23 @@ bot.on("message", (msg) => {
     } catch (error) {
       console.error(error);
     }
-  } else {
+
+    // send gifs ///////////////////////////////////////////////////////////
+  } else if(msg.text.toLowerCase() === "send me something cute") {
+
+    try {
+  
+      const selectedGIF = fs.readFileSync(
+        `./assets/track_${randomNumberGenerator(1, GIFS_UPPER_LIMIT)}.gif`
+      );
+      bot.sendPhoto(chatId, selectedGIF);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // exception catch ////////////////////////////////////////////////////
+  }
+   else  {
     bot.sendMessage(chatId, "Not The Magic Words, Pathuman!!!");
   }
 });
