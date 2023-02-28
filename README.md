@@ -1,3 +1,3 @@
-# telegram-bot
+# Telegram Bot
 
-Backed For my Telegram Bot
+Backend For my Telegram Bot hosted on (Cyclic)[cyclic.sh]
