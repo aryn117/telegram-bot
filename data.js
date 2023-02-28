@@ -27,8 +27,6 @@ const quotesReplyList = [
     "Come live with me, and be my love, and we will some new pleasures prove, of golden sands, and crystal brooks, with silken lines and silver hooks.",
     "I would rather spend one lifetime with you, than face all the ages of this world alone.",
     "If I had a flower for every time I thought of you...I could walk through my garden forever.",
-    
-
   ];
   
 
